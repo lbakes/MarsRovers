@@ -1,0 +1,76 @@
+﻿@model MarsRovers.ViewModels.ResultsViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="form-horizontal">
+    <fieldset disabled>
+        <div class="form-border">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <h3>Grid</h3>
+            <div class="row">
+                <div class="form-group col-md-2">
+                    @Html.LabelFor(model => model.Grid.X, htmlAttributes: new { @class = "control-label" })
+                    <div>
+                        @Html.EditorFor(model => model.Grid.X, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-2">
+                    @Html.LabelFor(model => model.Grid.Y, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div>
+                        @Html.EditorFor(model => model.Grid.Y, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+            </div>
+
+            <br />
+
+            <h3>Rover(s)</h3>
+
+            <table class="table table-borderless">
+                <thead>
+                    <tr class="row">
+                        <th scope="col" class="col-md-3">
+                            @Html.DisplayNameFor(model => model.Rovers[0].InitialPosition)
+                        </th>
+                        <th scope="col" class="col-md-4">
+                            @Html.DisplayNameFor(model => model.Rovers[0].Instructions)
+                        </th>
+                    </tr>
+                </thead>
+
+                @for (int i = 0; i < Model.Rovers.Count; i++)
+                {
+                    <tr class="row rover-input">
+                        <td class="col-md-3">
+                            @Html.EditorFor(model => model.Rovers[i].InitialPosition, new { htmlAttributes = new { @class = "form-control" } })
+                        </td>
+
+                        <td class="col-md-4">
+                            @Html.EditorFor(model => model.Rovers[i].Instructions, new { htmlAttributes = new { @class = "form-control" } })
+                        </td>
+                    </tr>
+                }
+            </table>
+
+            <h3>Updated Position(s)</h3>
+            <div class="results">
+                @foreach (string result in Model.Results)
+                {
+                    <div class="col-md-3">
+                        @Html.DisplayName(result)
+                    </div>
+                }
+            </div>
+        </div>
+    </fieldset>
+
+    <div class="row">
+        <div class="col-md-3">
+            @Html.Partial("_BackToRoverButtonPartial")
+        </div>
+    </div>
+</div>
+
